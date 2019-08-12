@@ -1,8 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/styles";
 import {
   AppBar,
+  Button,
   IconButton,
   Link,
   Toolbar,
@@ -20,8 +22,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function NavBar() {
+export default function NavBar(props) {
   const classes = useStyles();
+  const { userLogged, handleLogout } = props;
 
   return (
     <AppBar position="static">
@@ -59,10 +62,20 @@ export default function NavBar() {
         >
           About Us
         </Link>
-        <IconButton component={RouterLink} to="/login" aria-label="login">
-          <SettingIcon />
-        </IconButton>
+        {userLogged ? (
+          <Button variant="contained" onClick={handleLogout}>
+            Logout
+          </Button>
+        ) : (
+          <IconButton component={RouterLink} to="/login" aria-label="login">
+            <SettingIcon />
+          </IconButton>
+        )}
       </Toolbar>
     </AppBar>
   );
 }
+
+NavBar.propTypes = {
+  userLogged: PropTypes.object
+};
