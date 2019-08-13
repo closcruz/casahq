@@ -4,6 +4,7 @@ import { firebaseApp } from "./base";
 import { CssBaseline, Container } from "@material-ui/core";
 import NavBar from "./components/Root/NavBar";
 import Home from "./screens/Home";
+import About from "./screens/About";
 import Login from "./screens/Login";
 
 class Root extends Component {
@@ -40,6 +41,7 @@ class Root extends Component {
             <NavBar userLogged={me} handleLogout={this.handleLogout} />
             <Switch>
               <Route exact path="/" component={Home} />
+              <Route path="/about" component={About} />
               <Route
                 path="/login"
                 render={({ history }) => (
