@@ -1,33 +1,47 @@
 import React, { useState, useEffect } from "react";
-import base from "../../base";
-import { Grid } from "@material-ui/core";
+import { useList } from "react-firebase-hooks/database";
+import { firebaseApp } from "../../base";
+import { Button, Grid } from "@material-ui/core";
 import MemberCard from "./MemberCard";
+import EditMemberModal from "./EditMemberModal";
 
 const MemberBox = () => {
-  const [members, setMembers] = useState({});
+  const [members, loading, error] = useList(
+    firebaseApp.database().ref("members")
+  );
+  const [open, setOpen] = React.useState(false);
 
-  useEffect(() => {
-    const ref = base.syncState("members", {
-      context: {
-        setState: ({ members }) => setMembers({ ...members }),
-        state: { members }
-      },
-      state: "members"
-    });
+  const addMember = newMember => {
+    firebaseApp
+      .database()
+      .ref("members/" + `member${Date.now()}`)
+      .set({
+        ...newMember
+      });
+  };
 
-    return () => {
-      base.removeBinding(ref);
-    };
-  }, []);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <React.Fragment>
-      {Object.keys(members).map(key => (
-        <Grid item>
+      <Grid item>
+        <Button variant="contained" onClick={() => setOpen(true)}>
+          Add/Edit Members
+        </Button>
+      </Grid>
+      {members.map(m => (
+        <Grid item key={m.key}>
           {/* Member card */}
-          <MemberCard key={key} index={key} details={members[key]} />
+          <MemberCard key={m.key} index={m.key} details={m.val()} />
         </Grid>
       ))}
+      <EditMemberModal
+        open={open}
+        handleClose={handleClose}
+        addMember={addMember}
+      />
     </React.Fragment>
   );
 };
