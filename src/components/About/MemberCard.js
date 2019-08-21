@@ -26,7 +26,7 @@ const MemberCard = props => {
       <CardMedia component={Avatar} src="https://via.placeholder.com/150" />
       <CardContent>
         <Typography variant="h6">
-          {name} | Memember Since: {memSince}
+          {name} | Member Since: {memSince}
         </Typography>
         <Typography variant="body2">
           Position: {position} | Major: {major}

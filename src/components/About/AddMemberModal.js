@@ -10,39 +10,59 @@ import {
   TextField
 } from "@material-ui/core";
 
-// TODO Style this component
+// TODO style this component
 const useStyles = makeStyles(theme => ({}));
 
-const EditMemberModal = props => {
-  const [data, setData] = React.useState({});
+const AddMemberModal = props => {
+  const [data, setData] = React.useState({
+    name: "",
+    position: "",
+    email: "",
+    major: "",
+    memSince: ""
+  });
 
   const handleChange = name => e => {
     setData({ ...data, [name]: e.target.value });
   };
 
-  const handleEdit = e => {
+  const handleClearForm = () => {
+    const currData = data;
+    for (let x in currData) {
+      currData[x] = "";
+    }
+    setData({ currData });
+  };
+
+  const handleAdd = e => {
     e.preventDefault();
-    const { editMember } = props;
-    const member = { ...data };
-    editMember(member);
+    const { addMember } = props;
+    const { name, position, email, major, memSince } = data;
+    const member = {
+      name: name,
+      position: position,
+      email: email,
+      major: major,
+      memSince: memSince
+    };
+    addMember(member);
+    // handleClearForm();
   };
 
   const { handleClose, open } = props;
-  const { name, position, email, major, memSince } = props.member;
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle id="editForm-dialog-title">Edit Member List</DialogTitle>
+      <DialogTitle id="addForm-dialog-title">Add New Member</DialogTitle>
       <DialogContent>
         <Container maxWidth="sm">
-          <form onSubmit={handleEdit}>
+          <form onSubmit={handleAdd}>
             <TextField
               fullWidth
               id="name"
               label="Name"
               margin="dense"
-              defaultValue={name}
-              // value={data.name}
+              value={data.name}
               onChange={handleChange("name")}
             />
             <TextField
@@ -50,8 +70,7 @@ const EditMemberModal = props => {
               id="position"
               label="Position"
               margin="dense"
-              defaultValue={position}
-              // value={data.position}
+              value={data.position}
               onChange={handleChange("position")}
             />
             <TextField
@@ -59,8 +78,7 @@ const EditMemberModal = props => {
               id="email"
               label="Email"
               margin="dense"
-              defaultValue={email}
-              // value={data.email}
+              value={data.email}
               onChange={handleChange("email")}
             />
             <TextField
@@ -68,8 +86,7 @@ const EditMemberModal = props => {
               id="major"
               label="Major"
               margin="dense"
-              defaultValue={major}
-              // value={data.major}
+              value={data.major}
               onChange={handleChange("major")}
             />
             <TextField
@@ -77,12 +94,11 @@ const EditMemberModal = props => {
               id="memSince"
               label="Member Since"
               margin="dense"
-              defaultValue={memSince}
-              // value={data.memSince}
+              value={data.memSince}
               onChange={handleChange("memSince")}
             />
             <Button fullWidth type="submit" variant="contained">
-              Edit Member
+              Add Member
             </Button>
           </form>
         </Container>
@@ -91,17 +107,10 @@ const EditMemberModal = props => {
   );
 };
 
-EditMemberModal.propTypes = {
-  member: PropTypes.shape({
-    name: PropTypes.string,
-    position: PropTypes.string,
-    email: PropTypes.string,
-    major: PropTypes.string,
-    memSince: PropTypes.string
-  }).isRequired,
+AddMemberModal.propTypes = {
   open: PropTypes.bool,
   handleClose: PropTypes.func,
-  editMember: PropTypes.func
+  addMember: PropTypes.func
 };
 
-export default EditMemberModal;
+export default AddMemberModal;
