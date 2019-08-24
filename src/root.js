@@ -5,6 +5,7 @@ import { firebaseApp } from "./base";
 import { CssBaseline, Container } from "@material-ui/core";
 import NavBar from "./components/Root/NavBar";
 import Home from "./screens/Home";
+import Events from "./screens/Events";
 import About from "./screens/About";
 import Login from "./screens/Login";
 
@@ -32,6 +33,7 @@ const Root = () => {
           <NavBar userLogged={user} handleLogout={handleLogout} />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/events" component={Events} />
             <Route path="/about" component={About} />
             <Route
               path="/login"
