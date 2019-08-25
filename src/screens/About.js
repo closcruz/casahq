@@ -40,8 +40,9 @@ const Desciption = () => {
   );
 };
 
-const About = () => {
+const About = props => {
   const classes = useStyles();
+  const user = props.userLogged;
 
   return (
     <React.Fragment>
@@ -62,7 +63,7 @@ const About = () => {
           alignItems="center"
         >
           {/* Member list */}
-          <MemberBox />
+          <MemberBox user={user} />
         </Grid>
       </Grid>
     </React.Fragment>

@@ -1,10 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-import EventBox from "../components/Events/index";
+import NewsBox from "../components/News/index";
 
 const useStyles = makeStyles(theme => ({
-  eventHeader: {
+  newsHeader: {
     ...theme.typography,
     [theme.breakpoints.down("sm")]: {
       fontSize: "3.5rem"
@@ -15,23 +15,23 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Events = props => {
+const News = props => {
   const classes = useStyles();
   const user = props.userLogged;
 
   return (
     <React.Fragment>
-      <Typography className={classes.eventHeader} variant="h1" align="center">
-        Events
+      <Typography className={classes.newsHeader} variant="h1">
+        News
       </Typography>
-      <Typography variant="subtitle1" align="center">
-        See what we are up to this month and joing us! We'll keep this updated
-        so as soon as an event is planned it'll be here
+      <Typography variant="subtitle1">
+        What's up with the organization? Any updates and news relating to the
+        organization or what we find interesting is below.
       </Typography>
-      {/* Event Box Here */}
-      <EventBox user={user} />
+      {/* NewsBox goes here */}
+      <NewsBox user={user} />
     </React.Fragment>
   );
 };
 
-export default Events;
+export default News;

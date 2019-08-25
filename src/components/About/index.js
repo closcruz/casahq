@@ -1,14 +1,14 @@
 import React from "react";
 import { useList } from "react-firebase-hooks/database";
 import { firebaseApp } from "../../base";
-import { Button, Grid } from "@material-ui/core";
+import { Button, ButtonGroup, Grid } from "@material-ui/core";
 import MemberCard from "./MemberCard";
 import AddMemberModal from "./AddMemberModal";
 import EditMemberModal from "./EditMemberModal";
 import EditMemberPicker from "./EditMemberPicker";
 // import Testselect from "./testselect";
 
-const MemberBox = () => {
+const MemberBox = props => {
   let [members, loading, error] = useList(
     firebaseApp.database().ref("members")
   );
@@ -51,19 +51,30 @@ const MemberBox = () => {
     setSelectVal(selected);
   };
 
+  const user = props.user;
+
   return (
     <React.Fragment>
-      <Grid item>
-        <Button variant="contained" onClick={() => setAddOpen(true)}>
-          Add Members
-        </Button>
-        <Button variant="contained" onClick={() => setEditOpen(true)}>
-          Edit Member
-        </Button>
-      </Grid>
-      <Grid item>
-        <EditMemberPicker members={members} handleSelectVal={handleSelectVal} />
-      </Grid>
+      {user ? (
+        <div>
+          <Grid item>
+            <ButtonGroup>
+              <Button variant="contained" onClick={() => setAddOpen(true)}>
+                Add Members
+              </Button>
+              <Button variant="contained" onClick={() => setEditOpen(true)}>
+                Edit Member
+              </Button>
+            </ButtonGroup>
+          </Grid>
+          <Grid item>
+            <EditMemberPicker
+              members={members}
+              handleSelectVal={handleSelectVal}
+            />
+          </Grid>
+        </div>
+      ) : null}
       {members.map(m => (
         <Grid item key={m.key}>
           {/* Member card */}

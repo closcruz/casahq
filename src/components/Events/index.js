@@ -7,7 +7,7 @@ import AddEventModal from "./AddEventModal";
 import EditEventModal from "./EditEventModal";
 import EditEventPicker from "./EditEventPicker";
 
-const EventBox = () => {
+const EventBox = props => {
   let [events, loading, error] = useList(firebaseApp.database().ref("events"));
 
   const [addOpen, setAddOpen] = React.useState(false);
@@ -53,14 +53,20 @@ const EventBox = () => {
     setSelectVal(selected);
   };
 
+  const user = props.user;
+
   return (
     <React.Fragment>
       {/* Add/Edit controls here */}
-      <ButtonGroup>
-        <Button onClick={() => setAddOpen(true)}>Add Event</Button>
-        <Button onClick={() => setEditOpen(true)}>Edit Event</Button>
-      </ButtonGroup>
-      <EditEventPicker events={events} handleSelectVal={handleSelectVal} />
+      {user ? (
+        <div>
+          <ButtonGroup>
+            <Button onClick={() => setAddOpen(true)}>Add Event</Button>
+            <Button onClick={() => setEditOpen(true)}>Edit Event</Button>
+          </ButtonGroup>
+          <EditEventPicker events={events} handleSelectVal={handleSelectVal} />
+        </div>
+      ) : null}
       <Grid container spacing={3}>
         {/* Event card wrapped around grid item component here */}
         {events.map(e => (

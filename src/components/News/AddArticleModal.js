@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
   Container,
@@ -10,63 +9,65 @@ import {
   TextField
 } from "@material-ui/core";
 
-// TODO Style this component
-const useStyles = makeStyles(theme => ({}));
-
-const EditEventModal = props => {
-  const [data, setData] = React.useState({});
+const AddArticleModal = props => {
+  const [data, setData] = useState({
+    title: "",
+    postedOn: "",
+    desc: ""
+  });
 
   const handleChange = name => e => {
     setData({ ...data, [name]: e.target.value });
   };
 
-  const handleEdit = e => {
+  const handleAdd = e => {
     e.preventDefault();
-    const { editEvent } = props;
-    const event = { ...data };
-    editEvent(event);
+    const { addArticle } = props;
+    const { title, postedOn, desc } = data;
+    const article = {
+      title: title,
+      postedOn: postedOn,
+      desc: desc
+    };
+    addArticle(article);
   };
 
   const { handleClose, open } = props;
-  const { title, date, desc } = props.event;
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle id="editForm-dialog-title">Edit Event</DialogTitle>
+      <DialogTitle id="addArticle-dialog-title">Add New Article</DialogTitle>
       <DialogContent>
         <Container maxWidth="sm">
-          <form onSubmit={handleEdit}>
+          <form onSubmit={handleAdd}>
             <TextField
               fullWidth
               id="title"
-              label="Event Title"
+              label="Article Name"
               margin="dense"
-              defaultValue={title}
-              // value={data.name}
+              value={data.title}
               onChange={handleChange("title")}
             />
             <TextField
               fullWidth
               id="date"
-              label="Event Date"
+              label="Article Date"
               margin="dense"
-              defaultValue={date}
-              // value={data.position}
-              onChange={handleChange("date")}
+              value={data.postedOn}
+              onChange={handleChange("postedOn")}
             />
             <TextField
               fullWidth
               multiline
               id="desc"
-              label="Event Description"
+              label="Body"
               margin="dense"
               rowsMax="4"
-              defaultValue={desc}
-              // value={data.email}
+              value={data.desc}
               onChange={handleChange("desc")}
             />
             <Button fullWidth type="submit" variant="contained">
-              Edit Member
+              Add Article
             </Button>
           </form>
         </Container>
@@ -75,15 +76,10 @@ const EditEventModal = props => {
   );
 };
 
-EditEventModal.propTypes = {
-  event: PropTypes.shape({
-    title: PropTypes.string,
-    date: PropTypes.string,
-    desc: PropTypes.string
-  }).isRequired,
+AddArticleModal.propTypes = {
   open: PropTypes.bool,
   handleClose: PropTypes.func,
-  editEvent: PropTypes.func
+  addArticle: PropTypes.func.isRequired
 };
 
-export default EditEventModal;
+export default AddArticleModal;

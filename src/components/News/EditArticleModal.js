@@ -13,7 +13,7 @@ import {
 // TODO Style this component
 const useStyles = makeStyles(theme => ({}));
 
-const EditEventModal = props => {
+const EditArticleModal = props => {
   const [data, setData] = React.useState({});
 
   const handleChange = name => e => {
@@ -22,24 +22,24 @@ const EditEventModal = props => {
 
   const handleEdit = e => {
     e.preventDefault();
-    const { editEvent } = props;
-    const event = { ...data };
-    editEvent(event);
+    const { editArticle } = props;
+    const article = { ...data };
+    editArticle(article);
   };
 
   const { handleClose, open } = props;
-  const { title, date, desc } = props.event;
+  const { title, postedOn, desc } = props.article;
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle id="editForm-dialog-title">Edit Event</DialogTitle>
+      <DialogTitle id="editForm-dialog-title">Edit Article</DialogTitle>
       <DialogContent>
         <Container maxWidth="sm">
           <form onSubmit={handleEdit}>
             <TextField
               fullWidth
               id="title"
-              label="Event Title"
+              label="Article Title"
               margin="dense"
               defaultValue={title}
               // value={data.name}
@@ -48,17 +48,17 @@ const EditEventModal = props => {
             <TextField
               fullWidth
               id="date"
-              label="Event Date"
+              label="Posted On"
               margin="dense"
-              defaultValue={date}
+              defaultValue={postedOn}
               // value={data.position}
-              onChange={handleChange("date")}
+              onChange={handleChange("postedOn")}
             />
             <TextField
               fullWidth
               multiline
               id="desc"
-              label="Event Description"
+              label="Body"
               margin="dense"
               rowsMax="4"
               defaultValue={desc}
@@ -66,7 +66,7 @@ const EditEventModal = props => {
               onChange={handleChange("desc")}
             />
             <Button fullWidth type="submit" variant="contained">
-              Edit Member
+              Edit Article
             </Button>
           </form>
         </Container>
@@ -75,15 +75,15 @@ const EditEventModal = props => {
   );
 };
 
-EditEventModal.propTypes = {
-  event: PropTypes.shape({
+EditArticleModal.propTypes = {
+  article: PropTypes.shape({
     title: PropTypes.string,
-    date: PropTypes.string,
+    postedOn: PropTypes.string,
     desc: PropTypes.string
   }).isRequired,
   open: PropTypes.bool,
   handleClose: PropTypes.func,
-  editEvent: PropTypes.func
+  editArticle: PropTypes.func
 };
 
-export default EditEventModal;
+export default EditArticleModal;

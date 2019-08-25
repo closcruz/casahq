@@ -73,6 +73,7 @@ const LoginForm = props => {
             fullWidth
             id="password"
             label="Password"
+            type="password"
             margin="normal"
             value={creds.password}
             onChange={handleChange("password")}

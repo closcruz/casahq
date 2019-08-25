@@ -8,8 +8,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const EditEventPicker = props => {
-  const options = props.events;
+const EditArticlePicker = props => {
+  const options = props.articles;
   const [selected, setSelected] = useState({
     title: "test"
   });
@@ -40,14 +40,14 @@ const EditEventPicker = props => {
   return (
     <form>
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="member-select">Select Event to Edit</InputLabel>
+        <InputLabel htmlFor="member-select">Select Article to Edit</InputLabel>
         <Select
           value={selected.title}
           renderValue={() => renderValue(selected)}
           onChange={handleChange}
           inputProps={{
-            name: "event",
-            id: "event-select"
+            name: "article",
+            id: "article-select"
           }}
         >
           {renderMenuItems()}
@@ -57,4 +57,4 @@ const EditEventPicker = props => {
   );
 };
 
-export default EditEventPicker;
+export default EditArticlePicker;
