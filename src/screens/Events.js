@@ -4,6 +4,9 @@ import { Typography } from "@material-ui/core";
 import EventBox from "../components/Events/index";
 
 const useStyles = makeStyles(theme => ({
+  headerBlock: {
+    paddingBottom: theme.spacing(4)
+  },
   eventHeader: {
     ...theme.typography,
     [theme.breakpoints.down("sm")]: {
@@ -21,13 +24,15 @@ const Events = props => {
 
   return (
     <React.Fragment>
-      <Typography className={classes.eventHeader} variant="h1" align="center">
-        Events
-      </Typography>
-      <Typography variant="subtitle1" align="center">
-        See what we are up to this month and joing us! We'll keep this updated
-        so as soon as an event is planned it'll be here
-      </Typography>
+      <div className={classes.headerBlock}>
+        <Typography className={classes.eventHeader} variant="h1" align="center">
+          Events
+        </Typography>
+        <Typography variant="subtitle1" align="center">
+          See what we are up to this month and joing us! We'll keep this updated
+          so as soon as an event is planned it'll be here
+        </Typography>
+      </div>
       {/* Event Box Here */}
       <EventBox user={user} />
     </React.Fragment>

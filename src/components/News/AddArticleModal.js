@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import moment from "moment";
 import {
   Button,
   Container,
@@ -12,7 +13,6 @@ import {
 const AddArticleModal = props => {
   const [data, setData] = useState({
     title: "",
-    postedOn: "",
     desc: ""
   });
 
@@ -23,10 +23,11 @@ const AddArticleModal = props => {
   const handleAdd = e => {
     e.preventDefault();
     const { addArticle } = props;
-    const { title, postedOn, desc } = data;
+    const { title, desc } = data;
+    const now = moment().format("MMMM Do YYYY");
     const article = {
       title: title,
-      postedOn: postedOn,
+      postedOn: now,
       desc: desc
     };
     addArticle(article);
@@ -47,14 +48,6 @@ const AddArticleModal = props => {
               margin="dense"
               value={data.title}
               onChange={handleChange("title")}
-            />
-            <TextField
-              fullWidth
-              id="date"
-              label="Article Date"
-              margin="dense"
-              value={data.postedOn}
-              onChange={handleChange("postedOn")}
             />
             <TextField
               fullWidth

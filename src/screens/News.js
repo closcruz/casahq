@@ -4,6 +4,9 @@ import { Typography } from "@material-ui/core";
 import NewsBox from "../components/News/index";
 
 const useStyles = makeStyles(theme => ({
+  headerBlock: {
+    paddingBottom: theme.spacing(4)
+  },
   newsHeader: {
     ...theme.typography,
     [theme.breakpoints.down("sm")]: {
@@ -21,13 +24,15 @@ const News = props => {
 
   return (
     <React.Fragment>
-      <Typography className={classes.newsHeader} variant="h1">
-        News
-      </Typography>
-      <Typography variant="subtitle1">
-        What's up with the organization? Any updates and news relating to the
-        organization or what we find interesting is below.
-      </Typography>
+      <div className={classes.headerBlock}>
+        <Typography className={classes.newsHeader} variant="h1">
+          News
+        </Typography>
+        <Typography variant="subtitle1">
+          What's up with the organization? Any updates and news relating to the
+          organization or what we find interesting is below.
+        </Typography>
+      </div>
       {/* NewsBox goes here */}
       <NewsBox user={user} />
     </React.Fragment>

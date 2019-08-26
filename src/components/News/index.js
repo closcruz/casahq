@@ -1,7 +1,7 @@
 import React from "react";
 import { useList } from "react-firebase-hooks/database";
 import { firebaseApp } from "../../base";
-import { Button, ButtonGroup, Grid } from "@material-ui/core";
+import { Button, ButtonGroup } from "@material-ui/core";
 import NewsClip from "./NewsClip";
 import AddArticleModal from "./AddArticleModal";
 import EditArticleModal from "./EditArticleModal";
@@ -88,13 +88,6 @@ const NewsBox = props => {
         handleClose={() => setEditOpen(false)}
         editArticle={editArticle}
       />
-      {/*
-      <EditEventModal
-        event={selectVal}
-        open={editOpen}
-        handleClose={() => setEditOpen(false)}
-        editEvent={editEvent}
-      /> */}
     </React.Fragment>
   );
 };

@@ -11,13 +11,14 @@ const useStyles = makeStyles(theme => ({
     },
     [theme.breakpoints.up("md")]: {
       fontSize: "6rem"
-    }
+    },
+    paddingBottom: theme.spacing(4)
   }
 }));
 
 const Desciption = () => {
   return (
-    <Typography variant="body1">
+    <Typography paragraph variant="body1">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Pellentesque
       adipiscing commodo elit at imperdiet dui. Ac tortor dignissim convallis
