@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
+import { DatePicker } from "@material-ui/pickers";
 import {
   Button,
   Container,
@@ -15,6 +16,7 @@ const useStyles = makeStyles(theme => ({}));
 
 const EditEventModal = props => {
   const [data, setData] = React.useState({});
+  const [selectedDate, handleDateChange] = React.useState(null);
 
   const handleChange = name => e => {
     setData({ ...data, [name]: e.target.value });
@@ -28,7 +30,7 @@ const EditEventModal = props => {
   };
 
   const { handleClose, open } = props;
-  const { title, date, desc } = props.event;
+  const { title, desc } = props.event;
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -47,15 +49,6 @@ const EditEventModal = props => {
             />
             <TextField
               fullWidth
-              id="date"
-              label="Event Date"
-              margin="dense"
-              defaultValue={date}
-              // value={data.position}
-              onChange={handleChange("date")}
-            />
-            <TextField
-              fullWidth
               multiline
               id="desc"
               label="Event Description"
@@ -64,6 +57,13 @@ const EditEventModal = props => {
               defaultValue={desc}
               // value={data.email}
               onChange={handleChange("desc")}
+            />
+            <DatePicker
+              openTo="month"
+              views={["month", "date"]}
+              label="Select date of event"
+              value={selectedDate}
+              onChange={handleDateChange}
             />
             <Button fullWidth type="submit" variant="contained">
               Edit Member

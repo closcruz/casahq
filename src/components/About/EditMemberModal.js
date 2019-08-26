@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import moment from "moment";
 import { makeStyles } from "@material-ui/core/styles";
+import { DatePicker } from "@material-ui/pickers";
 import {
   Button,
   Container,
@@ -15,6 +17,7 @@ const useStyles = makeStyles(theme => ({}));
 
 const EditMemberModal = props => {
   const [data, setData] = React.useState({});
+  const [selectedDate, handleDateChange] = React.useState(null);
 
   const handleChange = name => e => {
     setData({ ...data, [name]: e.target.value });
@@ -72,14 +75,12 @@ const EditMemberModal = props => {
               // value={data.major}
               onChange={handleChange("major")}
             />
-            <TextField
-              fullWidth
-              id="memSince"
-              label="Member Since"
-              margin="dense"
-              defaultValue={memSince}
-              // value={data.memSince}
-              onChange={handleChange("memSince")}
+            <DatePicker
+              openTo="year"
+              views={["year", "month"]}
+              label="Pick year and month"
+              value={selectedDate}
+              onChange={handleDateChange}
             />
             <Button fullWidth type="submit" variant="contained">
               Edit Member

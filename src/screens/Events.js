@@ -1,4 +1,6 @@
 import React from "react";
+import DateMomentUtils from "@date-io/moment";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import EventBox from "../components/Events/index";
@@ -33,8 +35,10 @@ const Events = props => {
           so as soon as an event is planned it'll be here
         </Typography>
       </div>
-      {/* Event Box Here */}
-      <EventBox user={user} />
+      <MuiPickersUtilsProvider utils={DateMomentUtils}>
+        {/* Event Box Here */}
+        <EventBox user={user} />
+      </MuiPickersUtilsProvider>
     </React.Fragment>
   );
 };

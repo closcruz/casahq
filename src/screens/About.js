@@ -1,4 +1,6 @@
 import React from "react";
+import DateMomentUtils from "@date-io/moment";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Typography } from "@material-ui/core";
 import MemberBox from "../components/About/index";
@@ -63,8 +65,10 @@ const About = props => {
           direction="column"
           alignItems="center"
         >
-          {/* Member list */}
-          <MemberBox user={user} />
+          <MuiPickersUtilsProvider utils={DateMomentUtils}>
+            {/* Member list */}
+            <MemberBox user={user} />
+          </MuiPickersUtilsProvider>
         </Grid>
       </Grid>
     </React.Fragment>
