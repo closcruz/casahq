@@ -15,11 +15,17 @@ import {
 import { Settings as SettingIcon, Menu as MenuIcon } from "@material-ui/icons";
 
 const useStyles = makeStyles(theme => ({
+  rootBar: {
+    backgroundColor: "#1F4495"
+  },
   navHeader: {
+    color: "#cc5500",
     textDecoration: "none",
     flex: 1
   },
   navLinks: {
+    color: "#cc5500",
+    fontSize: "1.3rem",
     padding: "0 8px"
   }
 }));
@@ -87,7 +93,7 @@ const NavBar = props => {
   });
 
   return (
-    <AppBar position="static">
+    <AppBar className={classes.rootBar} position="static">
       <Toolbar>
         <Typography
           className={classes.navHeader}

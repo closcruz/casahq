@@ -15,12 +15,17 @@ const useStyles = makeStyles(theme => ({
       fontSize: "6rem"
     },
     paddingBottom: theme.spacing(4)
+  },
+  aboutBody: {
+    paddingTop: theme.spacing(20)
   }
 }));
 
 const Desciption = () => {
+  const classes = useStyles();
+
   return (
-    <Typography paragraph variant="body1">
+    <Typography className={classes.aboutBody} paragraph variant="body1">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Pellentesque
       adipiscing commodo elit at imperdiet dui. Ac tortor dignissim convallis
@@ -49,7 +54,7 @@ const About = props => {
 
   return (
     <React.Fragment>
-      <Typography className={classes.aboutHeader} variant="h1" align="center">
+      <Typography className={classes.aboutHeader} variant="h1">
         About Us
       </Typography>
       <Grid container spacing={2}>

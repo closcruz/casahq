@@ -6,6 +6,7 @@ import {
   Card,
   CardMedia,
   CardContent,
+  Grid,
   Typography
 } from "@material-ui/core";
 
@@ -14,6 +15,9 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("md")]: {
       minWidth: 600
     }
+  },
+  cardMemImage: {
+    height: 150
   }
 }));
 
@@ -23,16 +27,25 @@ const MemberCard = props => {
 
   return (
     <Card className={classes.card}>
-      <CardMedia component={Avatar} src="https://via.placeholder.com/150" />
-      <CardContent>
-        <Typography variant="h6">
-          {name} | Member Since: {memSince}
-        </Typography>
-        <Typography variant="body2">
-          Position: {position} | Major: {major}
-        </Typography>
-        <Typography variant="subtitle2">Email: {email}</Typography>
-      </CardContent>
+      <Grid container>
+        <Grid item sm={4}>
+          <CardMedia
+            className={classes.cardMemImage}
+            image="https://via.placeholder.com/150"
+          />
+        </Grid>
+        <Grid item sm={8}>
+          <CardContent>
+            <Typography variant="h6">
+              {name} | Member Since: {memSince}
+            </Typography>
+            <Typography variant="body2">
+              Position: {position} | Major: {major}
+            </Typography>
+            <Typography variant="subtitle2">Email: {email}</Typography>
+          </CardContent>
+        </Grid>
+      </Grid>
     </Card>
   );
 };
