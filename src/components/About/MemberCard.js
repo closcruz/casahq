@@ -14,10 +14,17 @@ const useStyles = makeStyles(theme => ({
   card: {
     [theme.breakpoints.up("md")]: {
       minWidth: 600
-    }
+    },
+    backgroundColor: "#1F4495"
   },
   cardMemImage: {
     height: 150
+  },
+  cardHeader: {
+    color: "#FF8A23"
+  },
+  cardDetails: {
+    color: "#FFF"
   }
 }));
 
@@ -36,13 +43,18 @@ const MemberCard = props => {
         </Grid>
         <Grid item sm={8}>
           <CardContent>
-            <Typography variant="h6">
-              {name} | Member Since: {memSince}
+            <Typography className={classes.cardHeader} variant="h6">
+              {name}
             </Typography>
-            <Typography variant="body2">
+            <Typography className={classes.cardHeader} variant="h6">
+              Member Since: {memSince}
+            </Typography>
+            <Typography className={classes.cardDetails} variant="body2">
               Position: {position} | Major: {major}
             </Typography>
-            <Typography variant="subtitle2">Email: {email}</Typography>
+            <Typography className={classes.cardDetails} variant="subtitle2">
+              Email: {email}
+            </Typography>
           </CardContent>
         </Grid>
       </Grid>

@@ -1,12 +1,11 @@
 import React from "react";
 import { useList } from "react-firebase-hooks/database";
 import { firebaseApp } from "../../base";
-import { Button, ButtonGroup, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import MemberCard from "./MemberCard";
 import AddMemberModal from "./AddMemberModal";
 import EditMemberModal from "./EditMemberModal";
-import EditMemberPicker from "./EditMemberPicker";
-// import Testselect from "./testselect";
+import MemberControls from "./MemberControls";
 
 const MemberBox = props => {
   let [members, loading, error] = useList(
@@ -14,7 +13,10 @@ const MemberBox = props => {
   );
   const [addOpen, setAddOpen] = React.useState(false);
   const [editOpen, setEditOpen] = React.useState(false);
+  const [pickerOpen, setPickerOpen] = React.useState(false);
+  const [selectKey, setSelectKey] = React.useState(null);
   const [selectVal, setSelectVal] = React.useState({});
+  const anchorRef = React.useRef(null);
 
   const addMember = newMember => {
     firebaseApp
@@ -37,7 +39,7 @@ const MemberBox = props => {
   const editMember = changedMember => {
     firebaseApp
       .database()
-      .ref("members/" + selectVal.key)
+      .ref("members/" + selectKey)
       .update(changedMember, err => {
         if (err) {
           console.log("There was an when editing this member: " + err);
@@ -47,8 +49,29 @@ const MemberBox = props => {
       });
   };
 
-  const handleSelectVal = selected => {
-    setSelectVal(selected);
+  const handleAddOpen = () => {
+    setAddOpen(true);
+  };
+
+  const handleEditOpen = () => {
+    setEditOpen(true);
+  };
+
+  const handleToggle = () => {
+    setPickerOpen(prevOpen => !prevOpen);
+  };
+
+  const handleClose = e => {
+    if (anchorRef.current && anchorRef.current.contains(e.target)) {
+      return;
+    }
+    setPickerOpen(false);
+  };
+
+  const handleSelectVal = (e, i) => {
+    setSelectKey(members[i].key);
+    setSelectVal(members[i].val());
+    setPickerOpen(false);
   };
 
   const user = props.user;
@@ -56,24 +79,17 @@ const MemberBox = props => {
   return (
     <React.Fragment>
       {user ? (
-        <div>
-          <Grid item>
-            <ButtonGroup>
-              <Button variant="contained" onClick={() => setAddOpen(true)}>
-                Add Members
-              </Button>
-              <Button variant="contained" onClick={() => setEditOpen(true)}>
-                Edit Member
-              </Button>
-            </ButtonGroup>
-          </Grid>
-          <Grid item>
-            <EditMemberPicker
-              members={members}
-              handleSelectVal={handleSelectVal}
-            />
-          </Grid>
-        </div>
+        <Grid item>
+          <MemberControls
+            members={members}
+            handleToggle={handleToggle}
+            handleAddOpen={handleAddOpen}
+            handleEditOpen={handleEditOpen}
+            handleClose={handleClose}
+            handleSelectVal={handleSelectVal}
+            pickerOpen={pickerOpen}
+          />
+        </Grid>
       ) : null}
       {members.map(m => (
         <Grid item key={m.key}>

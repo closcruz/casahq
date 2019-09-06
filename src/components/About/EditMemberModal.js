@@ -26,7 +26,10 @@ const EditMemberModal = props => {
   const handleEdit = e => {
     e.preventDefault();
     const { editMember } = props;
-    const member = { ...data };
+    const member = {
+      ...data,
+      memSince: moment(selectedDate).format("MMMM YYYY")
+    };
     editMember(member);
   };
 
@@ -45,7 +48,6 @@ const EditMemberModal = props => {
               label="Name"
               margin="dense"
               defaultValue={name}
-              // value={data.name}
               onChange={handleChange("name")}
             />
             <TextField
@@ -54,7 +56,6 @@ const EditMemberModal = props => {
               label="Position"
               margin="dense"
               defaultValue={position}
-              // value={data.position}
               onChange={handleChange("position")}
             />
             <TextField
@@ -63,7 +64,6 @@ const EditMemberModal = props => {
               label="Email"
               margin="dense"
               defaultValue={email}
-              // value={data.email}
               onChange={handleChange("email")}
             />
             <TextField
@@ -72,7 +72,6 @@ const EditMemberModal = props => {
               label="Major"
               margin="dense"
               defaultValue={major}
-              // value={data.major}
               onChange={handleChange("major")}
             />
             <DatePicker

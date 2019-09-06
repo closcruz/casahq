@@ -1,11 +1,11 @@
 import React from "react";
 import { useList } from "react-firebase-hooks/database";
 import { firebaseApp } from "../../base";
-import { Button, ButtonGroup } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import NewsClip from "./NewsClip";
 import AddArticleModal from "./AddArticleModal";
 import EditArticleModal from "./EditArticleModal";
-import EditArticlePicker from "./EditArticlePicker";
+import ArticleControl from "./ArticleControls";
 
 const NewsBox = props => {
   let [articles, loading, error] = useList(
@@ -14,7 +14,10 @@ const NewsBox = props => {
 
   const [addOpen, setAddOpen] = React.useState(false);
   const [editOpen, setEditOpen] = React.useState(false);
+  const [pickerOpen, setPickerOpen] = React.useState(false);
+  const [selectKey, setSelectKey] = React.useState(null);
   const [selectVal, setSelectVal] = React.useState({});
+  const anchorRef = React.useRef(null);
 
   const addArticle = newArticle => {
     firebaseApp
@@ -39,7 +42,7 @@ const NewsBox = props => {
   const editArticle = changedArticle => {
     firebaseApp
       .database()
-      .ref("articles/" + selectVal.key)
+      .ref("articles/" + selectKey)
       .update(changedArticle, err => {
         if (err) {
           console.log(
@@ -51,8 +54,29 @@ const NewsBox = props => {
       });
   };
 
-  const handleSelectVal = selected => {
-    setSelectVal(selected);
+  const handleAddOpen = () => {
+    setAddOpen(true);
+  };
+
+  const handleEditOpen = () => {
+    setEditOpen(true);
+  };
+
+  const handleToggle = () => {
+    setPickerOpen(prevOpen => !prevOpen);
+  };
+
+  const handleClose = e => {
+    if (anchorRef.current && anchorRef.current.contains(e.target)) {
+      return;
+    }
+    setPickerOpen(false);
+  };
+
+  const handleSelectVal = (e, i) => {
+    setSelectKey(articles[i].key);
+    setSelectVal(articles[i].val());
+    setPickerOpen(false);
   };
 
   const user = props.user;
@@ -61,17 +85,15 @@ const NewsBox = props => {
     <React.Fragment>
       {/* Add/Edit controls here */}
       {user ? (
-        <div>
-          <ButtonGroup>
-            <Button onClick={() => setAddOpen(true)}>Add Article</Button>
-            <Button onClick={() => setEditOpen(true)}>Edit Article</Button>
-          </ButtonGroup>
-          {/* <EditEventPicker events={events} handleSelectVal={handleSelectVal} /> */}
-          <EditArticlePicker
-            articles={articles}
-            handleSelectVal={handleSelectVal}
-          />
-        </div>
+        <ArticleControl
+          articles={articles}
+          handleAddOpen={handleAddOpen}
+          handleEditOpen={handleEditOpen}
+          handleToggle={handleToggle}
+          handleClose={handleClose}
+          handleSelectVal={handleSelectVal}
+          pickerOpen={pickerOpen}
+        />
       ) : null}
       {/* NewsClip  */}
       {articles.map(a => (

@@ -28,13 +28,13 @@ const AddMemberModal = props => {
     setData({ ...data, [name]: e.target.value });
   };
 
-  const handleClearForm = () => {
-    const currData = data;
-    for (let x in currData) {
-      currData[x] = "";
-    }
-    setData({ currData });
-  };
+  // const handleClearForm = () => {
+  //   const currData = data;
+  //   for (let x in currData) {
+  //     currData[x] = "";
+  //   }
+  //   setData({ currData });
+  // };
 
   const handleAdd = e => {
     e.preventDefault();

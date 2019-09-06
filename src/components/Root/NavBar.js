@@ -19,12 +19,12 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "#1F4495"
   },
   navHeader: {
-    color: "#cc5500",
+    color: "#FF8A23",
     textDecoration: "none",
     flex: 1
   },
   navLinks: {
-    color: "#cc5500",
+    color: "#FF8A23",
     fontSize: "1.3rem",
     padding: "0 8px"
   }
