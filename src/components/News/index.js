@@ -54,6 +54,13 @@ const NewsBox = props => {
       });
   };
 
+  const deleteArticle = () => {
+    firebaseApp
+      .database()
+      .ref("articles/" + selectKey)
+      .remove();
+  };
+
   const handleAddOpen = () => {
     setAddOpen(true);
   };
@@ -109,6 +116,7 @@ const NewsBox = props => {
         open={editOpen}
         handleClose={() => setEditOpen(false)}
         editArticle={editArticle}
+        deleteArticle={deleteArticle}
       />
     </React.Fragment>
   );

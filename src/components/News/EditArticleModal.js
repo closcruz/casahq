@@ -7,6 +7,7 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
+  Grid,
   TextField
 } from "@material-ui/core";
 
@@ -27,7 +28,7 @@ const EditArticleModal = props => {
     editArticle(article);
   };
 
-  const { handleClose, open } = props;
+  const { handleClose, deleteArticle, open } = props;
   const { title, postedOn, desc } = props.article;
 
   return (
@@ -65,9 +66,18 @@ const EditArticleModal = props => {
               // value={data.email}
               onChange={handleChange("desc")}
             />
-            <Button fullWidth type="submit" variant="contained">
-              Edit Article
-            </Button>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6}>
+                <Button fullWidth type="submit" variant="contained">
+                  Edit Article
+                </Button>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Button fullWidth variant="contained" onClick={deleteArticle}>
+                  Delete Article
+                </Button>
+              </Grid>
+            </Grid>
           </form>
         </Container>
       </DialogContent>

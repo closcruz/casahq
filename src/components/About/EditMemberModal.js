@@ -9,6 +9,7 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
+  Grid,
   TextField
 } from "@material-ui/core";
 
@@ -16,6 +17,7 @@ import {
 const useStyles = makeStyles(theme => ({}));
 
 const EditMemberModal = props => {
+  const { editMember, deleteMember, handleClose, open } = props;
   const [data, setData] = React.useState({});
   const [selectedDate, handleDateChange] = React.useState(null);
 
@@ -25,7 +27,6 @@ const EditMemberModal = props => {
 
   const handleEdit = e => {
     e.preventDefault();
-    const { editMember } = props;
     const member = {
       ...data,
       memSince: moment(selectedDate).format("MMMM YYYY")
@@ -33,7 +34,12 @@ const EditMemberModal = props => {
     editMember(member);
   };
 
-  const { handleClose, open } = props;
+  // const handleDelete = e => {
+  //   e.preventDefault();
+  //   deleteMember;
+  //   handleClose;
+  // };
+
   const { name, position, email, major, memSince } = props.member;
 
   return (
@@ -81,9 +87,18 @@ const EditMemberModal = props => {
               value={selectedDate}
               onChange={handleDateChange}
             />
-            <Button fullWidth type="submit" variant="contained">
-              Edit Member
-            </Button>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6}>
+                <Button fullWidth type="submit" variant="contained">
+                  Edit Member
+                </Button>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Button fullWidth variant="contained" onClick={deleteMember}>
+                  Delete Member
+                </Button>
+              </Grid>
+            </Grid>
           </form>
         </Container>
       </DialogContent>

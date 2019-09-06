@@ -49,6 +49,13 @@ const MemberBox = props => {
       });
   };
 
+  const deleteMember = () => {
+    firebaseApp
+      .database()
+      .ref("members/" + selectKey)
+      .remove();
+  };
+
   const handleAddOpen = () => {
     setAddOpen(true);
   };
@@ -107,6 +114,7 @@ const MemberBox = props => {
         member={selectVal}
         handleClose={() => setEditOpen(false)}
         editMember={editMember}
+        deleteMember={deleteMember}
       />
     </React.Fragment>
   );

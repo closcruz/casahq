@@ -52,6 +52,13 @@ const EventBox = props => {
       });
   };
 
+  const deleteEvent = () => {
+    firebaseApp
+      .database()
+      .ref("events/" + selectKey)
+      .remove();
+  };
+
   const handleAddOpen = () => {
     setAddOpen(true);
   };
@@ -111,6 +118,7 @@ const EventBox = props => {
         open={editOpen}
         handleClose={() => setEditOpen(false)}
         editEvent={editEvent}
+        deleteEvent={deleteEvent}
       />
     </React.Fragment>
   );

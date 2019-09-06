@@ -8,6 +8,7 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
+  Grid,
   TextField
 } from "@material-ui/core";
 
@@ -29,7 +30,7 @@ const EditEventModal = props => {
     editEvent(event);
   };
 
-  const { handleClose, open } = props;
+  const { handleClose, deleteEvent, open } = props;
   const { title, desc } = props.event;
 
   return (
@@ -65,9 +66,18 @@ const EditEventModal = props => {
               value={selectedDate}
               onChange={handleDateChange}
             />
-            <Button fullWidth type="submit" variant="contained">
-              Edit Member
-            </Button>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6}>
+                <Button fullWidth type="submit" variant="contained">
+                  Edit Event
+                </Button>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Button fullWidth variant="contained" onClick={deleteEvent}>
+                  Delete Event
+                </Button>
+              </Grid>
+            </Grid>
           </form>
         </Container>
       </DialogContent>
