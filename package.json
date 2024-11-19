@@ -8,7 +8,7 @@
     "@material-ui/icons": "^4.2.1",
     "@material-ui/pickers": "^3.2.4",
     "@material-ui/styles": "^4.3.0",
-    "firebase": "^6.3.4",
+    "firebase": "^10.9.0",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "re-base": "^4.0.0",
